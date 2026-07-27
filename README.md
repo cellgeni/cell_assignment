@@ -55,12 +55,12 @@ python bin/assign_cells.py \
 
 Two example workflows are included.
 
-### Xenium to registered segmentation
+### Example 1: Xenium to registered segmentation
 
 Demonstrates matching Xenium cells to StarDist segmentation after affine registration. Please nto that depending on direction of reigstration you may use True or False values for `invert_matrix`. Exam
 
 
-### Test 2
+### Example 2: Xenium bundle to xenium bundle
 
 Demonstrates matching Xenium cells to an alternative segmentation saved (probably with XeniumRanger) in Xenium bundle format. Idea here that one can use parquet file "cell_boundaries.parquet" and image "morphology.ome.tif" directly from second xenium bundle directory
 
