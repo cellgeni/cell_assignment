@@ -32,9 +32,8 @@ The program requires
 - Xenium output bundle
 - H&E segmentation polygons (Parquet)
 - H&E OME-TIFF image
+- Maximum allowed distance between each assigned cell pair
 - Affine transformation matrix (optional). Has to be simply csv with matrix 3x3
-- 
-- 
 ---
 
 ## Usage
