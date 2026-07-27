@@ -1,38 +1,9 @@
 # Cell Assignment
 
-Assign cells detected by Xenium to cells segmented from any other image segmentation pipeline using polygon boundaries.
+Assign cells from Xenium bundle to cells segmented from any other image segmentation pipeline using polygon parquet file. It can be used for datasets which are aligned with global affine transformation if transformation matrix is provided.
 
-The repository performs one-to-one matching between Xenium cells and external segmentation results based on transformed polygon centroids.
+The repository performs one-to-one matching between Xenium cells and external segmentation results based on transformed polygon centroids, simply by finding the closest cells and assigning them with upper limit that can be set.
 
----
-
-## Features
-
-- Supports Xenium cell or nucleus boundaries
-- Accepts external segmentation polygons stored as Parquet files
-- Automatic detection of polygon column names
-- Supports both vertex tables and geometry (Polygon/MultiPolygon) formats
-- Automatic inference of H&E coordinate units (pixels or microns)
-- Greedy one-to-one centroid matching
-- Optional affine coordinate transformation
-- Outputs matched cells and unmatched cell lists
-- Includes utilities for visualising matched cell boundaries
-
----
-
-## Repository structure
-
-```
-.
-├── bin/
-│   └── assign_cells.py
-│
-├── examples/
-│   ├── test1/
-│   └── test2/
-│
-└── README.md
-```
 
 ---
 
@@ -48,22 +19,8 @@ cd cell-assignment
 Create a Conda environment
 
 ```bash
-conda create -n cell_assignment python=3.12
+conda env create -f environment.yml
 conda activate cell_assignment
-```
-
-Install required packages
-
-```bash
-conda install -c conda-forge \
-    numpy \
-    pandas \
-    scipy \
-    matplotlib \
-    tifffile \
-    shapely \
-    pyarrow \
-    fire
 ```
 
 ---
@@ -75,18 +32,9 @@ The program requires
 - Xenium output bundle
 - H&E segmentation polygons (Parquet)
 - H&E OME-TIFF image
-- Optional affine transformation matrix
-
-External segmentation polygons may originate from any segmentation software, provided that polygon boundaries are available as a Parquet table.
-
-Supported polygon formats include
-
-- explicit vertex tables
-- Shapely Polygon
-- Shapely MultiPolygon
-- WKB
-- WKT
-
+- Affine transformation matrix (optional). Has to be simply csv with matrix 3x3
+- 
+- 
 ---
 
 ## Usage
@@ -107,12 +55,12 @@ python bin/assign_cells.py \
 
 Two example workflows are included.
 
-### Test 1
+### Xenium to registered segmentation
 
-Demonstrates matching Xenium cells to StarDist segmentation after affine registration.
+Demonstrates matching Xenium cells to StarDist segmentation after affine registration. Please nto that depending on direction of reigstration you may use True or False values for `invert_matrix`
 
 ```
-examples/test1/run_test1.sh
+examples/test1/xenium_to_reg_segm.sh
 ```
 
 ### Test 2
@@ -151,27 +99,10 @@ The matching table contains
 4. Apply the affine transformation (if supplied).
 5. Convert coordinates into H&E full-resolution pixels.
 6. Build a KD-tree for efficient neighbour search.
-7. Perform greedy one-to-one centroid matching within a user-defined maximum distance.
-
----
-
-## Requirements
-
-Python ≥3.10
-
-Main dependencies
-
-- numpy
-- pandas
-- scipy
-- shapely
-- tifffile
-- matplotlib
-- pyarrow
-- fire
+7. Perform greedy one-to-one centroid matching within a defined maximum distance.
 
 ---
 
 ## License
 
-Specify your preferred license here.
+This project is distributed under the MIT License. See the `LICENSE` file for details.
