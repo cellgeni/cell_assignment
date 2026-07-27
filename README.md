@@ -57,19 +57,16 @@ Two example workflows are included.
 
 ### Xenium to registered segmentation
 
-Demonstrates matching Xenium cells to StarDist segmentation after affine registration. Please nto that depending on direction of reigstration you may use True or False values for `invert_matrix`
+Demonstrates matching Xenium cells to StarDist segmentation after affine registration. Please nto that depending on direction of reigstration you may use True or False values for `invert_matrix`. Exam
 
-```
-examples/test1/xenium_to_reg_segm.sh
-```
 
 ### Test 2
 
-Demonstrates matching Xenium cells to an alternative segmentation generated directly in Xenium space.
+Demonstrates matching Xenium cells to an alternative segmentation saved (probably with XeniumRanger) in Xenium bundle format. Idea here that one can use parquet file "cell_boundaries.parquet" and image "morphology.ome.tif" directly from second xenium bundle directory
 
-```
-examples/test2/run_test2.sh
-```
+
+Both example can be found in folder "examples"
+
 
 ---
 
